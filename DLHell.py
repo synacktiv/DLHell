@@ -242,8 +242,8 @@ def parse_handler():
     parser.add_argument("-target", help="[[domain/]username[:password]@]<targetName or address>", required=False)
     parser.add_argument("-clsid", help="CLSID of DCOM class to activate", required=False)
     parser.add_argument("-progid", help="ProgID of DCOM class to activate", required=False)
-    parser.add_argument("-t","-template", help="Template file to use for lib generation", required=True)
-    parser.add_argument("-c","-command", help="Command to execute using hijacked lib", required=True)
+    parser.add_argument("-t","-template", help="Template file to use for lib generation", required=False)
+    parser.add_argument("-c","-command", help="Command to execute using hijacked lib", required=False)
     parser.add_argument("-u","-user", help="Name of the user to hijack (used to put DLLs in localappdata folder)", required=False)
     parser.add_argument("-l","-list", action="store_true", help="Lists vulnerable CLSID & ProgID for DCOM Hijacking", required=False)
 
